@@ -2,13 +2,15 @@
 
 
 CardSimulator::Card::~Card(){
-
 }
-
-bool CardSimulator::Card::operator==(const Card &b) {
-	return false;
-}
-
 /*void CardSimulator::Card::operator=(const int hoge) {
 	number_ = hoge;
 }*/
+
+int CardSimulator::Card::getnum() {
+	return this->number_;
+}
+
+bool CardSimulator::Card::operator<(Card &right) {
+	return this->number_ < right.getnum();
+}

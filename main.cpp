@@ -74,9 +74,9 @@ int main(int argc, char const *argv[]) {
 			tmp_trial->addCardByMap(cards_map);
 		}
 		// 山札からカードを引く回数
-		else if(conf_line.find("number_of_picikng") != std::string::npos){
+		else if(conf_line.find("number_of_draw") != std::string::npos){
 			std::regex_search(conf_line, match_result, re_nomal_num);
-			tmp_trial->SetNumofPickng(std::stoi(match_result.str(1)));
+			tmp_trial->SetNumofDraw(std::stoi(match_result.str(1)));
 		}
 		// 引いたカードの番号の合計
 		else if(conf_line.find("cards_total") != std::string::npos){
@@ -92,7 +92,23 @@ int main(int argc, char const *argv[]) {
 
 
 	for(std::unique_ptr<CardSimulator::Trial>& a_trial : trials){
-		std::cout << a_trial->str() << std::endl;
+		std::unique_ptr<std::vector<std::unique_ptr<CardSimulator::CardPool>>> a_trial_result = a_trial->drow();
+		std::vector<std::unique_ptr<CardSimulator::CardPool>>& a_trial_hand = *a_trial_result;
+
+		std::ofstream ofs(a_trial->GetTitle() + ".txt");
+		if (ofs.fail()){
+			throw std::runtime_error("can not open the file. '" + a_trial->GetTitle() + ".txt'");
+		}
+
+		ofs << a_trial->message() << std::endl;
+		for(auto result = a_trial_hand.begin(), end = a_trial_hand.end(); result != end; result++) {
+			std::unique_ptr<std::vector<int>> result_cards_num = result->get()->GetCardsNum();
+			for(int cardnum : *result_cards_num) {
+				ofs << cardnum << " ";
+			}
+			ofs << std::endl;
+		}
+
 	}
 	
 	return 0;
