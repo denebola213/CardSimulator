@@ -1,9 +1,9 @@
 #include "Trial.hpp"
 
 
-CardSimulator::Trial::Trial(std::string title = "") {
-	this->deck_ = std::unique_ptr<Deck>(new Deck());
-	this->title_ = title;
+CardSimulator::Trial::Trial() {
+	this->deck_ = std::unique_ptr<CardPool>(new CardPool());
+	this->title_ = "";
 	this->numof_picking_ = 0;
 	this->cards_total_ = 0;
 }
@@ -23,7 +23,7 @@ void CardSimulator::Trial::SetTotal(int total) {
 	this->cards_total_ = total;
 }
 
-void CardSimulator::Trial::SetDeckForMap(const std::map<int, size_t>& cards_map) {
+void CardSimulator::Trial::addCardByMap(const std::map<int, size_t>& cards_map) {
 	auto &&cards_map_iterator = cards_map.begin();
 	size_t cards_map_size = cards_map.size();
 	for (size_t i = 0; i < cards_map_size; i++) {

@@ -1,1 +1,1 @@
-add_library(cards STATIC Card.cpp Deck.cpp Trial.cpp)
+add_library(cards STATIC Card.cpp CardPool.cpp Trial.cpp)

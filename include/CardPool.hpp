@@ -5,12 +5,12 @@
 #include "Card.hpp"
 
 namespace CardSimulator {
-	class Deck {
+	class CardPool {
 		std::vector<std::unique_ptr<Card>> cards_;
 
 	public:
-		Deck();
-		~Deck();
+		CardPool();
+		~CardPool();
 
 		void insert(Card *insert_card);
 	};

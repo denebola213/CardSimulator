@@ -8,7 +8,7 @@ namespace CardSimulator {
 		Card(int num) :number_(num) {};
 		~Card();
 		bool operator==(const Card &hoge);
-		void operator=(const int hoge);
+		//void operator=(const int hoge);
 	};
 
 }
